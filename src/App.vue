@@ -33,10 +33,59 @@ export default {
     }
   },
   methods: {
-    // Stub
+    _fetchDataFor (key, daysAgo) {
+      var date = this.$moment().subtract(daysAgo, 'days').unix()
+      let fetch = (curr, date) => this.axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=${curr}&tsyms=USD&ts=${date}`)
+
+      this.axios
+        .all([fetch('BTC', date), fetch('ETH', date), fetch('LTC', date)])
+        .then(
+          this.axios.spread((BTC, ETH, LTC) => {
+            this.previousCurrency[key] = {
+              BTC: BTC.data.BTC.USD,
+              LTC: LTC.data.LTC.USD,
+              ETH: ETH.data.ETH.USD,
+              DATE: this.$moment.unix(date).format('MMMM Do YYYY')
+            }
+            localStorage.setItem(
+              `${key}Prices`,
+              JSON.stringify(this.previousCurrency[key])
+            )
+          })
+        )
+    },
+    _fetchDataForToday () {
+      let url = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD'
+      this.axios.get(url).then(res => {
+        localStorage.setItem('BTC', (this.currentCurrency.BTC = res.data.BTC.USD))
+        localStorage.setItem('ETH', (this.currentCurrency.ETH = res.data.ETH.USD))
+        localStorage.setItem('LTC', (this.currentCurrency.LTC = res.data.LTC.USD))
+      })
+    }
   },
   created () {
-    // Stub
+    if (!navigator.onLine) {
+      this.currentCurrency = {
+        BTC: localStorage.getItem('BTC'),
+        ETH: localStorage.getItem('ETH'),
+        LTC: localStorage.getItem('LTC')
+      }
+
+      this.previousCurrency = {
+        yesterday: JSON.parse(localStorage.getItem('yesterdayPrices')),
+        twoDays: JSON.parse(localStorage.getItem('twoDaysPrices')),
+        threeDays: JSON.parse(localStorage.getItem('threeDaysPrices')),
+        fourDays: JSON.parse(localStorage.getItem('fourDaysPrices')),
+        fiveDays: JSON.parse(localStorage.getItem('fiveDaysPrices'))
+      }
+    } else {
+      this._fetchDataFor('yesterday', 1)
+      this._fetchDataFor('twoDays', 2)
+      this._fetchDataFor('threeDays', 3)
+      this._fetchDataFor('fourDays', 4)
+      this._fetchDataFor('fiveDays', 5)
+      this._fetchDataForToday()
+    }
   }
 }
 </script>
