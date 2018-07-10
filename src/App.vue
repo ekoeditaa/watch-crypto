@@ -16,6 +16,7 @@
 import Intro from './components/Home.vue'
 import Current from './components/Current.vue'
 import Previous from './components/Previous.vue'
+import Pusher from 'pusher-js'
 
 export default {
   name: 'app',
@@ -85,6 +86,18 @@ export default {
       this._fetchDataFor('fourDays', 4)
       this._fetchDataFor('fiveDays', 5)
       this._fetchDataForToday()
+      let pusher = new Pusher('4d4f8bafef41b5d280bd', {
+        cluster: 'ap1',
+        encrypted: true
+      })
+      let channel = pusher.subscribe('price-updates')
+      channel.bind('coin-updates', data => {
+        this.currentCurrency = {
+          BTC: data.coin.BTC.USD,
+          ETH: data.coin.ETH.USD,
+          LTC: data.coin.LTC.USD
+        }
+      })
     }
   }
 }

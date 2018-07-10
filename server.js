@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const Pusher = require('pusher');
 const axios = require('axios');
+var serveStatic = require('serve-static');
 
 
 // Initialise Pusher
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     next()
 });
+
+app.use(serveStatic(__dirname + "/dist"));
 
 // Routes
 app.get('/', _ => res.send('Welcome'));
