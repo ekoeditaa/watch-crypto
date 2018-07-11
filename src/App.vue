@@ -144,7 +144,7 @@ a:visited {
   margin: 0 auto;
   padding: 1.5em;
   text-align: center;
-  color: rgb(0, 193, 131);
+  color: rgb(0, 193, 16);
 }
 #current {
   padding: 2em 0em;

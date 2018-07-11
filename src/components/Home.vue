@@ -2,10 +2,9 @@
       <header class="hero">
         <div class="bar logo">
           <h3>CryptoTracker</h3>
-          <span class="monitor"><span class="monitorText">receive updates</span></span>
         </div>
-        <h1>Realtime PWA that displays updates on cryptocurrencies</h1>
-        <h2>Bitcoin, Ethereum, Litecoin?</h2>
+        <h1>Realtime displays of cryptocurrencies market prices</h1>
+        <h2>Bitcoin, Ethereum, and Litecoin</h2>
       </header>
     </template>
     <script>
@@ -14,7 +13,7 @@
 
     <style scoped>
     header {
-        background: linear-gradient(to bottom right, rgb(0, 193, 131),rgb(50, 72, 95));
+        background: linear-gradient(to bottom right, rgb(0, 106, 193),rgb(50, 85, 95));
         padding: 1em;
         margin-bottom: 1em;
         text-align: center;
