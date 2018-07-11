@@ -18,7 +18,8 @@
     "pusher-js": "^4.2.2",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.1",
-    "vue-momentjs": "^0.1.2"
+    "vue-momentjs": "^0.1.2",
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",
@@ -44,7 +45,6 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "eventsource-polyfill": "^0.9.6",
-    "express": "^4.16.3",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",
